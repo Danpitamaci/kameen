@@ -32,49 +32,80 @@ import CommonService from './commonService'
     /**
      * Getting global birth evolution
      */
-    getGlobalBirthsEvolution() {
-      //setting the years
-       this.setYears()
-        const globalBirthEvolution = this.years.forEach(
-        item => {
-          return this.getGlobalBirthByYear(item)
-        } 
-      )
+     getGlobalBirthsEvolution(years,births) {
+      let globalBirthEvolution = years.map(
+      item => {
+        return this.getGlobalBirthByYear(item,births)
+      } 
+    )
 
       return globalBirthEvolution
     }
-    /**
-     * Gettting the number of births by a specified year
-     * @param {Number} year 
-     * @returns number of birth for "year"
-     */
-    getGlobalBirthByYear(year) {
-      let birthByYear = 0
-      this.births.records.forEach(element => {
-        if (element.fields.annee == year) {
-          birthByYear = birthByYear + element.fields.nb_naissance
-        }
-      });
-       return {year,birthByYear}
-    }
 
     /**
-     * The getter for year array, by removing duplicate values
+     * Getting birth evolution by sexe 
+     * @param {Number} years 
+     * @param {Array} births 
+     * @param {String} sexe 
+     * @returns array of births numbers by sexe
      */
-    getYears() {
-     let years = []
-     const commonService = new CommonService(this.datasetID,this.facet,this.rows)
-     let births = commonService.getData().then(
-       response => births = response.data
-     ).finally(
-      births.records.forEach(element => {
-          if (!years.includes(element)) {
-          years.push(element.fields.annee)
-          }
-        })
-      )
-      return years
+     getBirthsEvolutionBySexe(years,births,sexe) {
+      let birthEvolutionBySexe = years.map(
+      item => {
+        return this.getBirthByYearAndSexe(item,births,sexe)
+      } 
+    )
+
+      return birthEvolutionBySexe
     }
+
+  
+  /**
+   * Gettting the number of births by a specified year
+   * @param {Number} year 
+   * @param {Number} births 
+   * @returns number of birth for "year"
+   */
+  getGlobalBirthByYear(year,births) {
+    let birthByYear = 0
+    births.forEach(element => {
+      if (element.fields.annee == year) {
+        birthByYear = birthByYear + element.fields.nb_naissances
+        
+      }
+    });
+     return birthByYear
   }
+
+  /**
+   * Gettting the number births by sexe for specified year
+   * @param {Number} year 
+   * @param {Number} births 
+   * @returns number of birth for "year"
+   */
+   getBirthByYearAndSexe(year,births,sexe) {
+    let birthByYear = 0
+    births.forEach(element => {
+      if (element.fields.annee == year && sexe == element.fields.sexe ) {
+        birthByYear = birthByYear + element.fields.nb_naissances
+        
+      }
+    });
+     return birthByYear
+  }
+  /**
+   * The getter for year array, by removing duplicate values
+   */
+  getYears(births) {
+    let years = []
+   births.forEach(element => {
+        if (!years.includes(element.fields.annee)) {
+           years.push(element.fields.annee)
+        }
+      })
+
+      return years.sort((a, b) => a - b)
+  }
+}
 
   

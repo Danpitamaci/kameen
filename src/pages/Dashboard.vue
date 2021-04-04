@@ -7,6 +7,7 @@
         <chart-card
           :chart-data="globalBirthsEvolutionChart.data"
           :chart-options="globalBirthsEvolutionChart.options"
+          :chart-responsive-options="globalBirthsEvolutionChart.responsiveOptions"
           :chart-type="'Line'"
           data-background-color="blue"
         >
@@ -14,16 +15,16 @@
             <h4 class="title">Evolution des naissances</h4>
             <p class="category">
               <span class="text-success"
-                ><i class="fas fa-long-arrow-alt-up"></i> 5%
+                ><i class="fas fa-long-arrow-alt-up"></i> Pic
               </span>
-             augmentation des naissances
+              des naissances en 2019
             </p>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-              updated 4 minutes ago
+               Mise à jour quotidien
             </div>
           </template>
         </chart-card>
@@ -32,23 +33,23 @@
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
       >
         <chart-card
-          :chart-data="emailsSubscriptionChart.data"
-          :chart-options="emailsSubscriptionChart.options"
-          :chart-responsive-options="emailsSubscriptionChart.responsiveOptions"
-          :chart-type="'Bar'"
+          :chart-data="boysBirthsEvolutionChart.data"
+          :chart-options="boysBirthsEvolutionChart.options"
+          :chart-responsive-options="boysBirthsEvolutionChart.responsiveOptions"
+          :chart-type="'Line'"
           data-background-color="red"
         >
           <template slot="content">
-            <h4 class="title">Email Subscription</h4>
+            <h4 class="title">Evolution des naissances de garçons</h4>
             <p class="category">
-              Last Campaign Performance
+              Evolution différente de la globale
             </p>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-              updated 10 days ago
+              Mise à jour quotidien
             </div>
           </template>
         </chart-card>
@@ -57,22 +58,22 @@
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
       >
         <chart-card
-          :chart-data="dataCompletedTasksChart.data"
-          :chart-options="dataCompletedTasksChart.options"
+          :chart-data="girlsBirthsEvolutionChart.data"
+          :chart-options="girlsBirthsEvolutionChart.options"
           :chart-type="'Line'"
           data-background-color="green"
         >
           <template slot="content">
-            <h4 class="title">Completed Tasks</h4>
+            <h4 class="title">Evolution des naissances de filles</h4>
             <p class="category">
-              Last Campaign Performance
+              Tendance similaire à la globale
             </p>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-              campaign sent 26 minutes ago
+               Mise à jour quotidien
             </div>
           </template>
         </chart-card>
@@ -225,10 +226,29 @@ export default {
       births : [],
       years : [],
       globalBirthEvolution : [],
-      birthsBoys : [],
-      birthsGirls : [],
+      boysBirthEvolution : [],
+      girlsBirthEvolution : [],
       //global
       globalBirthsEvolutionChart: {
+        data: {
+          labels: [],
+          series: [[]]
+        },
+        options: {
+          lineSmooth: this.$Chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 10
+          }
+        }
+      },
+      
+      //boys
+      boysBirthsEvolutionChart: {
         data: {
           labels: [],
           series: [[]]
@@ -242,60 +262,25 @@ export default {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 0
+            left: 8
           }
         }
       },
-
-      dataCompletedTasksChart: {
+      //girls
+      girlsBirthsEvolutionChart: {
         data: {
-          labels: ["12am", "3pm", "6pm", "9pm", "12pm", "3am", "6am", "9am"],
-          series: [[230, 750, 450, 300, 280, 240, 200, 190]]
+          labels: [],
+          series: [[]]
         },
-
         options: {
           lineSmooth: this.$Chartist.Interpolation.cardinal({
             tension: 0
           }),
-          low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
-        }
-      },
-      emailsSubscriptionChart: {
-        data: {
-          labels: [
-            "Ja",
-            "Fe",
-            "Ma",
-            "Ap",
-            "Mai",
-            "Ju",
-            "Jul",
-            "Au",
-            "Se",
-            "Oc",
-            "No",
-            "De"
-          ],
-          series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]]
-        },
-        options: {
-          axisX: {
-            showGrid: false
-          },
-          low: 0,
-          high: 1000,
           chartPadding: {
             top: 0,
             right: 5,
             bottom: 0,
-            left: 0
+            left: 10
           }
         },
         responsiveOptions: [
@@ -315,51 +300,17 @@ export default {
     };
   },
   methods: {
-    /**
-     * Getting global birth evolution
-     */
-    getGlobalBirthsEvolution(years,births) {
-        let globalBirthEvolution = years.map(
-        item => {
-          return this.getGlobalBirthByYear(item,births)
-        } 
-      )
-
-      return globalBirthEvolution
-    },
-    /**
-     * Gettting the number of births by a specified year
-     * @param {Number} year 
-     * @param {Number} births 
-     * @returns number of birth for "year"
-     */
-    getGlobalBirthByYear(year,births) {
-      let birthByYear = 0
-      births.forEach(element => {
-        if (element.fields.annee == year) {
-          birthByYear = birthByYear + element.fields.nb_naissances
-          
-        }
-      });
-       return birthByYear
-    },
-
-    /**
-     * The getter for year array, by removing duplicate values
-     */
-    getYears(births) {
-      let years = []
-     births.forEach(element => {
-          if (!years.includes(element.fields.annee)) {
-             years.push(element.fields.annee)
-          }
-        })
-
-        return years.sort((a, b) => a - b)
-    }, 
      setGlobalBirthEvolutionChart(){
        this.globalBirthsEvolutionChart.data.labels = this.years
        this.globalBirthsEvolutionChart.data.series = [this.globalBirthEvolution]
+     },
+     setBoysBirthEvolutionChart(){
+       this.boysBirthsEvolutionChart.data.labels = this.years
+       this.boysBirthsEvolutionChart.data.series = [this.boysBirthEvolution]
+     },
+     setGirlsBirthEvolutionChart(){
+       this.girlsBirthsEvolutionChart.data.labels = this.years
+       this.girlsBirthsEvolutionChart.data.series = [this.girlsBirthEvolution]
      }
   },
    async mounted () {
@@ -369,13 +320,23 @@ export default {
       this.births = this.births.data.records
     console.log(this.births)
 
-    this.years = await this.getYears(this.births)
+    this.years = await birthService.getYears(this.births)
     console.log(this.years)
-
-    this.globalBirthEvolution =  await this.getGlobalBirthsEvolution(this.years,this.births)
+    
+    //global
+    this.globalBirthEvolution =  await birthService.getGlobalBirthsEvolution(this.years,this.births)
     console.log(this.globalBirthEvolution)
+    //boys
+    this.boysBirthEvolution =  await birthService.getBirthsEvolutionBySexe(this.years,this.births,"GARCON")
+    console.log(this.boysBirthEvolution)
+    //girls
+    this.girlsBirthEvolution =  await birthService.getBirthsEvolutionBySexe(this.years,this.births,"FILLE")
+    console.log(this.girlsBirthEvolution)
+
 
     this.setGlobalBirthEvolutionChart()
+    this.setBoysBirthEvolutionChart()
+    this.setGirlsBirthEvolutionChart()
    
      
   }
