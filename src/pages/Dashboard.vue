@@ -5,18 +5,18 @@
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
       >
         <chart-card
-          :chart-data="dailySalesChart.data"
-          :chart-options="dailySalesChart.options"
+          :chart-data="globalBirthsEvolutionChart.data"
+          :chart-options="globalBirthsEvolutionChart.options"
           :chart-type="'Line'"
           data-background-color="blue"
         >
           <template slot="content">
-            <h4 class="title">Daily Sales</h4>
+            <h4 class="title">Evolution des naissances</h4>
             <p class="category">
               <span class="text-success"
-                ><i class="fas fa-long-arrow-alt-up"></i> 55%
+                ><i class="fas fa-long-arrow-alt-up"></i> 5%
               </span>
-              increase in today sales.
+             augmentation des naissances
             </p>
           </template>
 
@@ -211,7 +211,7 @@ import {
   NavTabsTable,
   OrderedTable
 } from "@/components";
-
+import BirthService from '../services/birthService'
 export default {
   components: {
     StatsCard,
@@ -222,17 +222,22 @@ export default {
   },
   data() {
     return {
-      dailySalesChart: {
+      births : [],
+      years : [],
+      globalBirthEvolution : [],
+      birthsBoys : [],
+      birthsGirls : [],
+      //global
+      globalBirthsEvolutionChart: {
         data: {
-          labels: ["M", "T", "W", "T", "F", "S", "S"],
-          series: [[12, 17, 7, 17, 23, 18, 38]]
+          labels: [],
+          series: [[]]
         },
         options: {
           lineSmooth: this.$Chartist.Interpolation.cardinal({
             tension: 0
           }),
-          low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+         
           chartPadding: {
             top: 0,
             right: 0,
@@ -241,6 +246,7 @@ export default {
           }
         }
       },
+
       dataCompletedTasksChart: {
         data: {
           labels: ["12am", "3pm", "6pm", "9pm", "12pm", "3am", "6am", "9am"],
@@ -307,6 +313,71 @@ export default {
         ]
       }
     };
+  },
+  methods: {
+    /**
+     * Getting global birth evolution
+     */
+    getGlobalBirthsEvolution(years,births) {
+        let globalBirthEvolution = years.map(
+        item => {
+          return this.getGlobalBirthByYear(item,births)
+        } 
+      )
+
+      return globalBirthEvolution
+    },
+    /**
+     * Gettting the number of births by a specified year
+     * @param {Number} year 
+     * @param {Number} births 
+     * @returns number of birth for "year"
+     */
+    getGlobalBirthByYear(year,births) {
+      let birthByYear = 0
+      births.forEach(element => {
+        if (element.fields.annee == year) {
+          birthByYear = birthByYear + element.fields.nb_naissances
+          
+        }
+      });
+       return birthByYear
+    },
+
+    /**
+     * The getter for year array, by removing duplicate values
+     */
+    getYears(births) {
+      let years = []
+     births.forEach(element => {
+          if (!years.includes(element.fields.annee)) {
+             years.push(element.fields.annee)
+          }
+        })
+
+        return years.sort((a, b) => a - b)
+    }, 
+     setGlobalBirthEvolutionChart(){
+       this.globalBirthsEvolutionChart.data.labels = this.years
+       this.globalBirthsEvolutionChart.data.series = [this.globalBirthEvolution]
+     }
+  },
+   async mounted () {
+
+   const  birthService = new BirthService()
+      this.births = await  birthService.getBirths()
+      this.births = this.births.data.records
+    console.log(this.births)
+
+    this.years = await this.getYears(this.births)
+    console.log(this.years)
+
+    this.globalBirthEvolution =  await this.getGlobalBirthsEvolution(this.years,this.births)
+    console.log(this.globalBirthEvolution)
+
+    this.setGlobalBirthEvolutionChart()
+   
+     
   }
 };
 </script>
