@@ -284,7 +284,7 @@ export default {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 1,
+            left: 0,
           },
         },
         responsiveOptions: [
@@ -470,6 +470,13 @@ export default {
     };
   },
   methods: {
+
+    /***** position **** */
+    async getCurrentPosition(){
+      const { Geolocation } = Plugins;
+      const loc = await Geolocation.getCurrentPosition()
+      this.loc = loc
+    },
     //***********Births*******************//
 
     async getBirthsStuffs() {
