@@ -37,6 +37,7 @@
         <chart-card
           :chart-data="boysBirthsEvolutionChart.data"
           :chart-options="boysBirthsEvolutionChart.options"
+           :chart-responsive-options="boysBirthsEvolutionChart.responsiveOptions"
           :chart-type="'Line'"
           data-background-color="green"
         >
@@ -61,6 +62,7 @@
         <chart-card
           :chart-data="girlsBirthsEvolutionChart.data"
           :chart-options="girlsBirthsEvolutionChart.options"
+           :chart-responsive-options="girlsBirthsEvolutionChart.responsiveOptions"
           :chart-type="'Line'"
           data-background-color="purple"
         >
@@ -172,6 +174,7 @@
         <chart-card
           :chart-data="globalDeathsEvolutionChart.data"
           :chart-options="globalDeathsEvolutionChart.options"
+           :chart-responsive-options="globalDeathsEvolutionChart.responsiveOptions"
           :chart-type="'Line'"
           data-background-color="red"
         >
@@ -224,6 +227,7 @@
         <chart-card
           :chart-data="girlsDeathsEvolutionChart.data"
           :chart-options="girlsDeathsEvolutionChart.options"
+           :chart-responsive-options="girlsDeathsEvolutionChart.responsiveOptions"
           :chart-type="'Line'"
           data-background-color="grey"
         >
@@ -280,9 +284,22 @@ export default {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 10,
+            left: 1,
           },
         },
+        responsiveOptions: [
+          [
+            "screen and (max-width: 640px)",
+            {
+              seriesBarDistance: 5,
+              axisX: {
+                labelInterpolationFnc: function(value) {
+                  return value[0];
+                },
+              },
+            },
+          ],
+        ],
       },
 
       //boys
@@ -303,6 +320,19 @@ export default {
             left: 10,
           },
         },
+        responsiveOptions: [
+          [
+            "screen and (max-width: 640px)",
+            {
+              seriesBarDistance: 5,
+              axisX: {
+                labelInterpolationFnc: function(value) {
+                  return value[0];
+                },
+              },
+            },
+          ],
+        ],
       },
       //girls
       girlsBirthsEvolutionChart: {
@@ -359,6 +389,19 @@ export default {
             left: 10,
           },
         },
+        responsiveOptions: [
+          [
+            "screen and (max-width: 640px)",
+            {
+              seriesBarDistance: 5,
+              axisX: {
+                labelInterpolationFnc: function(value) {
+                  return value[0];
+                },
+              },
+            },
+          ],
+        ],
       },
 
       //boys
@@ -379,6 +422,19 @@ export default {
             left: 10,
           },
         },
+        responsiveOptions: [
+          [
+            "screen and (max-width: 640px)",
+            {
+              seriesBarDistance: 5,
+              axisX: {
+                labelInterpolationFnc: function(value) {
+                  return value[0];
+                },
+              },
+            },
+          ],
+        ],
       },
       //girls
       girlsDeathsEvolutionChart: {
@@ -542,5 +598,12 @@ export default {
     this.setBoysDeathEvolutionChart();
     this.setGirlsDeathEvolutionChart();
   },
+
+  watch : {
+    globalBirthsEvolutionChart : {
+      handler : "setGlobalBirthEvolutionChart",
+      deep : true
+    }
+  }
 };
 </script>
