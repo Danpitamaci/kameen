@@ -7,7 +7,9 @@
         <chart-card
           :chart-data="globalBirthsEvolutionChart.data"
           :chart-options="globalBirthsEvolutionChart.options"
-          :chart-responsive-options="globalBirthsEvolutionChart.responsiveOptions"
+          :chart-responsive-options="
+            globalBirthsEvolutionChart.responsiveOptions
+          "
           :chart-type="'Line'"
           data-background-color="blue"
         >
@@ -24,7 +26,7 @@
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-               Mise à jour quotidien
+              Mise à jour quotidien
             </div>
           </template>
         </chart-card>
@@ -72,7 +74,7 @@
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-               Mise à jour quotidien
+              Mise à jour quotidien
             </div>
           </template>
         </chart-card>
@@ -87,7 +89,7 @@
 
           <template slot="content">
             <p class="category">Naissances</p>
-            <h3 class="title">{{totalBirths}}</h3>
+            <h3 class="title">{{ totalBirths }}</h3>
           </template>
 
           <template slot="footer">
@@ -109,7 +111,7 @@
           <template slot="content">
             <p class="category">Garçons</p>
             <h3 class="title">
-              {{totalBirthsBoys}}
+              {{ totalBirthsBoys }}
             </h3>
           </template>
 
@@ -131,7 +133,7 @@
 
           <template slot="content">
             <p class="category">Filles</p>
-            <h3 class="title">{{totalBirthsGirls}}</h3>
+            <h3 class="title">{{ totalBirthsGirls }}</h3>
           </template>
 
           <template slot="footer">
@@ -152,7 +154,7 @@
 
           <template slot="content">
             <p class="category">Decès</p>
-            <h3 class="title">{{totalDeaths}}</h3>
+            <h3 class="title">{{ totalDeaths }}</h3>
           </template>
 
           <template slot="footer">
@@ -163,10 +165,8 @@
           </template>
         </stats-card>
       </div>
-      
 
-
-    <div
+      <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
       >
         <chart-card
@@ -188,7 +188,7 @@
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-               Mise à jour quotidien
+              Mise à jour quotidien
             </div>
           </template>
         </chart-card>
@@ -237,7 +237,7 @@
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-               Mise à jour quotidien
+              Mise à jour quotidien
             </div>
           </template>
         </chart-card>
@@ -247,82 +247,79 @@
 </template>
 
 <script>
-import {
-  StatsCard,
-  ChartCard,
-} from "@/components";
-import BirthService from '../services/birthService'
-import DeathService from '../services/deathService'
+import { StatsCard, ChartCard } from "@/components";
+import BirthService from "../services/birthService";
+import DeathService from "../services/deathService";
 export default {
   components: {
     StatsCard,
-    ChartCard
+    ChartCard,
   },
   data() {
     return {
       //*****************Births******************//
-      births : [],
-      years : [],
-      totalBirths : 0,
-      totalBirthsBoys : 0,
-      totalBirthsGirls : 0,
-      globalBirthEvolution : [],
-      boysBirthEvolution : [],
-      girlsBirthEvolution : [],
+      births: [],
+      years: [],
+      totalBirths: 0,
+      totalBirthsBoys: 0,
+      totalBirthsGirls: 0,
+      globalBirthEvolution: [],
+      boysBirthEvolution: [],
+      girlsBirthEvolution: [],
       //global
       globalBirthsEvolutionChart: {
         data: {
           labels: [],
-          series: [[]]
+          series: [[]],
         },
         options: {
           lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
+            tension: 0,
           }),
           chartPadding: {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 10
-          }
-        }
+            left: 10,
+          },
+        },
       },
-      
+
       //boys
       boysBirthsEvolutionChart: {
         data: {
           labels: [],
-          series: [[]]
+          series: [[]],
         },
         options: {
           lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
+            tension: 0,
           }),
-         
+
           chartPadding: {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 10
-          }
-        }
+            left: 10,
+          },
+        },
       },
       //girls
       girlsBirthsEvolutionChart: {
         data: {
           labels: [],
-          series: [[]]
+          series: [[]],
         },
         options: {
           lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
+            tension: 0,
           }),
           chartPadding: {
             top: 0,
             right: 5,
             bottom: 0,
-            left: 10
-          }
+            left: 10,
+          },
         },
         responsiveOptions: [
           [
@@ -332,73 +329,73 @@ export default {
               axisX: {
                 labelInterpolationFnc: function(value) {
                   return value[0];
-                }
-              }
-            }
-          ]
-        ]
+                },
+              },
+            },
+          ],
+        ],
       },
       //*****************Deaths******************//
-      deaths : [],
-      deathsYears : [],
-      totalDeaths : 0,
-      globalDeathEvolution : [],
-      boysDeathEvolution : [],
-      girlsDeathEvolution : [],
+      deaths: [],
+      deathsYears: [],
+      totalDeaths: 0,
+      globalDeathEvolution: [],
+      boysDeathEvolution: [],
+      girlsDeathEvolution: [],
       //global
       globalDeathsEvolutionChart: {
         data: {
           labels: [],
-          series: [[]]
+          series: [[]],
         },
         options: {
           lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
+            tension: 0,
           }),
           chartPadding: {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 10
-          }
-        }
+            left: 10,
+          },
+        },
       },
-      
+
       //boys
       boysDeathsEvolutionChart: {
         data: {
           labels: [],
-          series: [[]]
+          series: [[]],
         },
         options: {
           lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
+            tension: 0,
           }),
-         
+
           chartPadding: {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 10
-          }
-        }
+            left: 10,
+          },
+        },
       },
       //girls
       girlsDeathsEvolutionChart: {
         data: {
           labels: [],
-          series: [[]]
+          series: [[]],
         },
         options: {
           lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
+            tension: 0,
           }),
           chartPadding: {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 10
-          }
+            left: 10,
+          },
         },
         responsiveOptions: [
           [
@@ -408,109 +405,142 @@ export default {
               axisX: {
                 labelInterpolationFnc: function(value) {
                   return value[0];
-                }
-              }
-            }
-          ]
-        ]
-      }
+                },
+              },
+            },
+          ],
+        ],
+      },
     };
   },
   methods: {
-    //***********Births*******************/
-     setGlobalBirthEvolutionChart(){
-       this.globalBirthsEvolutionChart.data.labels = this.years
-       this.globalBirthsEvolutionChart.data.series = [this.globalBirthEvolution]
-     },
-     setBoysBirthEvolutionChart(){
-       this.boysBirthsEvolutionChart.data.labels = this.years
-       this.boysBirthsEvolutionChart.data.series = [this.boysBirthEvolution]
-     },
-     setGirlsBirthEvolutionChart(){
-       this.girlsBirthsEvolutionChart.data.labels = this.years
-       this.girlsBirthsEvolutionChart.data.series = [this.girlsBirthEvolution]
-     },
-     
+    //***********Births*******************//
+
+    async getBirthsStuffs() {
+      const birthService = new BirthService();
+      this.births = await birthService.getBirths();
+      this.births = this.births.data.records;
+      console.log(this.births);
+
+      this.years = await birthService.getYears(this.births);
+      console.log(this.years);
+
+      //global
+      this.totalBirths = await birthService.getTotalOfBirths(this.births);
+      console.log(this.totalBirths);
+
+      this.globalBirthEvolution = await birthService.getGlobalBirthsEvolution(
+        this.years,
+        this.births
+      );
+      console.log(this.globalBirthEvolution);
+      //boys
+      this.totalBirthsBoys = await birthService.getTotalOfBirthsBySexe(
+        this.births,
+        "GARCON"
+      );
+      console.log(this.totalBirthsBoys);
+
+      this.boysBirthEvolution = await birthService.getBirthsEvolutionBySexe(
+        this.years,
+        this.births,
+        "GARCON"
+      );
+      console.log(this.boysBirthEvolution);
+      //girls
+      this.totalBirthsGirls = await birthService.getTotalOfBirthsBySexe(
+        this.births,
+        "FILLE"
+      );
+      console.log(this.totalBirthsGirls);
+
+      this.girlsBirthEvolution = await birthService.getBirthsEvolutionBySexe(
+        this.years,
+        this.births,
+        "FILLE"
+      );
+      console.log(this.girlsBirthEvolution);
+    },
+
+    setGlobalBirthEvolutionChart() {
+      this.globalBirthsEvolutionChart.data.labels = this.years;
+      this.globalBirthsEvolutionChart.data.series = [this.globalBirthEvolution];
+    },
+    setBoysBirthEvolutionChart() {
+      this.boysBirthsEvolutionChart.data.labels = this.years;
+      this.boysBirthsEvolutionChart.data.series = [this.boysBirthEvolution];
+    },
+    setGirlsBirthEvolutionChart() {
+      this.girlsBirthsEvolutionChart.data.labels = this.years;
+      this.girlsBirthsEvolutionChart.data.series = [this.girlsBirthEvolution];
+    },
+
     //***********Deaths*******************/
-     setGlobalDeathEvolutionChart(){
-       this.globalDeathsEvolutionChart.data.labels = this.deathsYears
-       this.globalDeathsEvolutionChart.data.series = [this.globalDeathEvolution]
-     },
-     setBoysDeathEvolutionChart(){
-       this.boysDeathsEvolutionChart.data.labels = this.deathsYears
-       this.boysDeathsEvolutionChart.data.series = [this.boysDeathEvolution]
-     },
-     setGirlsDeathEvolutionChart(){
-       this.girlsDeathsEvolutionChart.data.labels = this.deathsYears
-       this.girlsDeathsEvolutionChart.data.series = [this.girlsDeathEvolution]
-     }
+    async getDeathsStuffs() {
+      const deathService = new DeathService();
+    this.deaths = await deathService.getDeaths();
+    this.deaths = this.deaths.data.records;
+    console.log(this.deaths);
 
+    this.deathsYears = await deathService.getYears(this.deaths);
+    console.log(this.deathsYears);
+    //global
+    this.totalDeaths = await deathService.getTotalOfDeaths(this.deaths);
+    console.log(this.totalDeaths);
+
+    this.globalDeathEvolution = await deathService.getGlobalDeathsEvolution(
+      this.deathsYears,
+      this.deaths
+    );
+    console.log(this.globalDeathEvolution);
+    //boys
+    this.boysDeathEvolution = await deathService.getDeathsEvolutionBySexe(
+      this.deathsYears,
+      this.deaths,
+      "Homme"
+    );
+    console.log(this.boysDeathEvolution);
+    //girls
+    this.girlsDeathEvolution = await deathService.getDeathsEvolutionBySexe(
+      this.deathsYears,
+      this.deaths,
+      "Femme"
+    );
+    console.log(this.girlsDeathEvolution);
+
+    },
+    setGlobalDeathEvolutionChart() {
+      this.globalDeathsEvolutionChart.data.labels = this.deathsYears;
+      this.globalDeathsEvolutionChart.data.series = [this.globalDeathEvolution];
+    },
+    setBoysDeathEvolutionChart() {
+      this.boysDeathsEvolutionChart.data.labels = this.deathsYears;
+      this.boysDeathsEvolutionChart.data.series = [this.boysDeathEvolution];
+    },
+    setGirlsDeathEvolutionChart() {
+      this.girlsDeathsEvolutionChart.data.labels = this.deathsYears;
+      this.girlsDeathsEvolutionChart.data.series = [this.girlsDeathEvolution];
+    },
   },
-   async mounted () {
-   /**
-    * Births API managements
-    */
-   const  birthService = new BirthService()
-      this.births = await  birthService.getBirths()
-      this.births = this.births.data.records
-    console.log(this.births)
+   mounted() {
+    /**
+     * Births API managements
+     */
+     this.getBirthsStuffs()
 
-    this.years = await birthService.getYears(this.births)
-    console.log(this.years)
+    this.setGlobalBirthEvolutionChart();
+    this.setBoysBirthEvolutionChart();
+    this.setGirlsBirthEvolutionChart();
+
+    /**
+     * Deaths API managements
+     */
+    this.getDeathsStuffs()
     
-    //global
-    this.totalBirths = await birthService.getTotalOfBirths(this.births)
-    console.log(this.totalBirths)
-       
-    this.globalBirthEvolution =  await birthService.getGlobalBirthsEvolution(this.years,this.births)
-    console.log(this.globalBirthEvolution)
-    //boys
-    this.totalBirthsBoys = await birthService.getTotalOfBirthsBySexe(this.births,"GARCON")
-    console.log(this.totalBirthsBoys)
 
-    this.boysBirthEvolution =  await birthService.getBirthsEvolutionBySexe(this.years,this.births,"GARCON")
-    console.log(this.boysBirthEvolution)
-    //girls
-    this.totalBirthsGirls = await birthService.getTotalOfBirthsBySexe(this.births,"FILLE")
-    console.log(this.totalBirthsGirls)
-
-    this.girlsBirthEvolution =  await birthService.getBirthsEvolutionBySexe(this.years,this.births,"FILLE")
-    console.log(this.girlsBirthEvolution)
-
-
-    this.setGlobalBirthEvolutionChart()
-    this.setBoysBirthEvolutionChart()
-    this.setGirlsBirthEvolutionChart()
-   
-   /**
-    * Deaths API managements
-    */
-   const  deathService = new DeathService()
-    this.deaths = await  deathService.getDeaths()
-    this.deaths = this.deaths.data.records
-    console.log(this.deaths)
-
-    this.deathsYears = await deathService.getYears(this.deaths)
-    console.log(this.deathsYears)
-    //global
-    this.totalDeaths = await deathService.getTotalOfDeaths(this.deaths)
-    console.log(this.totalDeaths)
-    
-    this.globalDeathEvolution =  await deathService.getGlobalDeathsEvolution(this.deathsYears,this.deaths)
-    console.log(this.globalDeathEvolution)
-    //boys
-    this.boysDeathEvolution =  await deathService.getDeathsEvolutionBySexe(this.deathsYears,this.deaths,"Homme")
-    console.log(this.boysDeathEvolution)
-    //girls
-    this.girlsDeathEvolution =  await deathService.getDeathsEvolutionBySexe(this.deathsYears,this.deaths,"Femme")
-    console.log(this.girlsDeathEvolution)
-
-
-    this.setGlobalDeathEvolutionChart()
-    this.setBoysDeathEvolutionChart()
-    this.setGirlsDeathEvolutionChart()
-   
-     
-  }
+    this.setGlobalDeathEvolutionChart();
+    this.setBoysDeathEvolutionChart();
+    this.setGirlsDeathEvolutionChart();
+  },
 };
 </script>

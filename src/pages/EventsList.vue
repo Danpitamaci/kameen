@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import agendaServices from '@/services/agendaServices'
+import AgendaService from '../services/agendaServices'
 import EventCard from '../components/Agenda/EventCard.vue';
 export default {
   components: { EventCard },
@@ -34,11 +34,12 @@ export default {
  },
    methods: {
             async getAllEvents () {
+                const  agendaServices = new AgendaService()
                 const response = await agendaServices.getAllEvents()
                 this.events = response.data.records.map( record => record.fields)
             }
         },
- created() {
+ mounted() {
    this.getAllEvents();
   }
 };
