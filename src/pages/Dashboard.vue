@@ -35,9 +35,8 @@
         <chart-card
           :chart-data="boysBirthsEvolutionChart.data"
           :chart-options="boysBirthsEvolutionChart.options"
-          :chart-responsive-options="boysBirthsEvolutionChart.responsiveOptions"
           :chart-type="'Line'"
-          data-background-color="red"
+          data-background-color="green"
         >
           <template slot="content">
             <h4 class="title">Evolution des naissances de garçons</h4>
@@ -61,7 +60,7 @@
           :chart-data="girlsBirthsEvolutionChart.data"
           :chart-options="girlsBirthsEvolutionChart.options"
           :chart-type="'Line'"
-          data-background-color="green"
+          data-background-color="purple"
         >
           <template slot="content">
             <h4 class="title">Evolution des naissances de filles</h4>
@@ -81,20 +80,20 @@
       <div
         class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
       >
-        <stats-card data-background-color="green">
+        <stats-card data-background-color="blue">
           <template slot="header">
-            <md-icon>store</md-icon>
+            <md-icon>pregnant_woman</md-icon>
           </template>
 
           <template slot="content">
-            <p class="category">Revenue</p>
-            <h3 class="title">$34,245</h3>
+            <p class="category">Naissances</p>
+            <h3 class="title">{{totalBirths}}</h3>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>date_range</md-icon>
-              Last 24 Hours
+              Nés depuis 2016
             </div>
           </template>
         </stats-card>
@@ -102,23 +101,43 @@
       <div
         class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
       >
-        <stats-card data-background-color="orange">
+        <stats-card data-background-color="green">
           <template slot="header">
-            <md-icon>content_copy</md-icon>
+            <md-icon>male</md-icon>
           </template>
 
           <template slot="content">
-            <p class="category">Used Space</p>
+            <p class="category">Garçons</p>
             <h3 class="title">
-              49/50
-              <small>GB</small>
+              {{totalBirthsBoys}}
             </h3>
           </template>
 
           <template slot="footer">
             <div class="stats">
-              <md-icon class="text-danger">warning</md-icon>
-              <a href="#pablo">Get More Space...</a>
+              <md-icon>date_range</md-icon>
+              Nés depuis 2016
+            </div>
+          </template>
+        </stats-card>
+      </div>
+      <div
+        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
+      >
+        <stats-card data-background-color="purple">
+          <template slot="header">
+            <md-icon>female</md-icon>
+          </template>
+
+          <template slot="content">
+            <p class="category">Filles</p>
+            <h3 class="title">{{totalBirthsGirls}}</h3>
+          </template>
+
+          <template slot="footer">
+            <div class="stats">
+              <md-icon>date_range</md-icon>
+              Nées depuis 2016
             </div>
           </template>
         </stats-card>
@@ -132,73 +151,96 @@
           </template>
 
           <template slot="content">
-            <p class="category">Fixed Issues</p>
-            <h3 class="title">75</h3>
+            <p class="category">Decès</p>
+            <h3 class="title">{{totalDeaths}}</h3>
           </template>
 
           <template slot="footer">
             <div class="stats">
-              <md-icon>local_offer</md-icon>
-              Tracked from Github
+              <md-icon>date_range</md-icon>
+              Depuis 2016
             </div>
           </template>
         </stats-card>
       </div>
-      <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
-      >
-        <stats-card data-background-color="blue">
-          <template slot="header">
-            <i class="fab fa-twitter"></i>
-          </template>
+      
 
+
+    <div
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
+      >
+        <chart-card
+          :chart-data="globalDeathsEvolutionChart.data"
+          :chart-options="globalDeathsEvolutionChart.options"
+          :chart-type="'Line'"
+          data-background-color="red"
+        >
           <template slot="content">
-            <p class="category">Folowers</p>
-            <h3 class="title">+245</h3>
+            <h4 class="title">Evolution global des decès</h4>
+            <p class="category">
+              <span class="text-success"
+                ><i class="fas fa-long-arrow-alt-up"></i> Pic
+              </span>
+              des decès en 2019
+            </p>
           </template>
 
           <template slot="footer">
             <div class="stats">
-              <md-icon>update</md-icon>
-              Just Updated
+              <md-icon>access_time</md-icon>
+               Mise à jour quotidien
             </div>
           </template>
-        </stats-card>
+        </chart-card>
       </div>
       <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
       >
-        <md-card>
-          <md-card-header data-background-color="orange">
-            <h4 class="title">Employees Stats</h4>
-            <p class="category">New employees on 15th September, 2016</p>
-          </md-card-header>
-          <md-card-content>
-            <ordered-table table-header-color="orange"></ordered-table>
-          </md-card-content>
-        </md-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
-      >
-        <nav-tabs-card>
+        <chart-card
+          :chart-data="boysDeathsEvolutionChart.data"
+          :chart-options="boysDeathsEvolutionChart.options"
+          :chart-responsive-options="boysDeathsEvolutionChart.responsiveOptions"
+          :chart-type="'Line'"
+          data-background-color="orange"
+        >
           <template slot="content">
-            <span class="md-nav-tabs-title">Tasks:</span>
-            <md-tabs class="md-success" md-alignment="left">
-              <md-tab id="tab-home" md-label="Bugs" md-icon="bug_report">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-
-              <md-tab id="tab-pages" md-label="Website" md-icon="code">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-
-              <md-tab id="tab-posts" md-label="server" md-icon="cloud">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-            </md-tabs>
+            <h4 class="title">Evolution des decès d'homme</h4>
+            <p class="category">
+              Evolution différente de la tendance globale
+            </p>
           </template>
-        </nav-tabs-card>
+
+          <template slot="footer">
+            <div class="stats">
+              <md-icon>access_time</md-icon>
+              Mise à jour quotidien
+            </div>
+          </template>
+        </chart-card>
+      </div>
+      <div
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
+      >
+        <chart-card
+          :chart-data="girlsDeathsEvolutionChart.data"
+          :chart-options="girlsDeathsEvolutionChart.options"
+          :chart-type="'Line'"
+          data-background-color="grey"
+        >
+          <template slot="content">
+            <h4 class="title">Evolution des decès de femmes</h4>
+            <p class="category">
+              Tendance similaire à la globale
+            </p>
+          </template>
+
+          <template slot="footer">
+            <div class="stats">
+              <md-icon>access_time</md-icon>
+               Mise à jour quotidien
+            </div>
+          </template>
+        </chart-card>
       </div>
     </div>
   </div>
@@ -208,23 +250,22 @@
 import {
   StatsCard,
   ChartCard,
-  NavTabsCard,
-  NavTabsTable,
-  OrderedTable
 } from "@/components";
 import BirthService from '../services/birthService'
+import DeathService from '../services/deathService'
 export default {
   components: {
     StatsCard,
-    ChartCard,
-    NavTabsCard,
-    NavTabsTable,
-    OrderedTable
+    ChartCard
   },
   data() {
     return {
+      //*****************Births******************//
       births : [],
       years : [],
+      totalBirths : 0,
+      totalBirthsBoys : 0,
+      totalBirthsGirls : 0,
       globalBirthEvolution : [],
       boysBirthEvolution : [],
       girlsBirthEvolution : [],
@@ -262,7 +303,7 @@ export default {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 8
+            left: 10
           }
         }
       },
@@ -296,10 +337,87 @@ export default {
             }
           ]
         ]
+      },
+      //*****************Deaths******************//
+      deaths : [],
+      deathsYears : [],
+      totalDeaths : 0,
+      globalDeathEvolution : [],
+      boysDeathEvolution : [],
+      girlsDeathEvolution : [],
+      //global
+      globalDeathsEvolutionChart: {
+        data: {
+          labels: [],
+          series: [[]]
+        },
+        options: {
+          lineSmooth: this.$Chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 10
+          }
+        }
+      },
+      
+      //boys
+      boysDeathsEvolutionChart: {
+        data: {
+          labels: [],
+          series: [[]]
+        },
+        options: {
+          lineSmooth: this.$Chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+         
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 10
+          }
+        }
+      },
+      //girls
+      girlsDeathsEvolutionChart: {
+        data: {
+          labels: [],
+          series: [[]]
+        },
+        options: {
+          lineSmooth: this.$Chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 10
+          }
+        },
+        responsiveOptions: [
+          [
+            "screen and (max-width: 640px)",
+            {
+              seriesBarDistance: 5,
+              axisX: {
+                labelInterpolationFnc: function(value) {
+                  return value[0];
+                }
+              }
+            }
+          ]
+        ]
       }
     };
   },
   methods: {
+    //***********Births*******************/
      setGlobalBirthEvolutionChart(){
        this.globalBirthsEvolutionChart.data.labels = this.years
        this.globalBirthsEvolutionChart.data.series = [this.globalBirthEvolution]
@@ -311,10 +429,27 @@ export default {
      setGirlsBirthEvolutionChart(){
        this.girlsBirthsEvolutionChart.data.labels = this.years
        this.girlsBirthsEvolutionChart.data.series = [this.girlsBirthEvolution]
+     },
+     
+    //***********Deaths*******************/
+     setGlobalDeathEvolutionChart(){
+       this.globalDeathsEvolutionChart.data.labels = this.deathsYears
+       this.globalDeathsEvolutionChart.data.series = [this.globalDeathEvolution]
+     },
+     setBoysDeathEvolutionChart(){
+       this.boysDeathsEvolutionChart.data.labels = this.deathsYears
+       this.boysDeathsEvolutionChart.data.series = [this.boysDeathEvolution]
+     },
+     setGirlsDeathEvolutionChart(){
+       this.girlsDeathsEvolutionChart.data.labels = this.deathsYears
+       this.girlsDeathsEvolutionChart.data.series = [this.girlsDeathEvolution]
      }
+
   },
    async mounted () {
-
+   /**
+    * Births API managements
+    */
    const  birthService = new BirthService()
       this.births = await  birthService.getBirths()
       this.births = this.births.data.records
@@ -324,12 +459,21 @@ export default {
     console.log(this.years)
     
     //global
+    this.totalBirths = await birthService.getTotalOfBirths(this.births)
+    console.log(this.totalBirths)
+       
     this.globalBirthEvolution =  await birthService.getGlobalBirthsEvolution(this.years,this.births)
     console.log(this.globalBirthEvolution)
     //boys
+    this.totalBirthsBoys = await birthService.getTotalOfBirthsBySexe(this.births,"GARCON")
+    console.log(this.totalBirthsBoys)
+
     this.boysBirthEvolution =  await birthService.getBirthsEvolutionBySexe(this.years,this.births,"GARCON")
     console.log(this.boysBirthEvolution)
     //girls
+    this.totalBirthsGirls = await birthService.getTotalOfBirthsBySexe(this.births,"FILLE")
+    console.log(this.totalBirthsGirls)
+
     this.girlsBirthEvolution =  await birthService.getBirthsEvolutionBySexe(this.years,this.births,"FILLE")
     console.log(this.girlsBirthEvolution)
 
@@ -337,6 +481,34 @@ export default {
     this.setGlobalBirthEvolutionChart()
     this.setBoysBirthEvolutionChart()
     this.setGirlsBirthEvolutionChart()
+   
+   /**
+    * Deaths API managements
+    */
+   const  deathService = new DeathService()
+    this.deaths = await  deathService.getDeaths()
+    this.deaths = this.deaths.data.records
+    console.log(this.deaths)
+
+    this.deathsYears = await deathService.getYears(this.deaths)
+    console.log(this.deathsYears)
+    //global
+    this.totalDeaths = await deathService.getTotalOfDeaths(this.deaths)
+    console.log(this.totalDeaths)
+    
+    this.globalDeathEvolution =  await deathService.getGlobalDeathsEvolution(this.deathsYears,this.deaths)
+    console.log(this.globalDeathEvolution)
+    //boys
+    this.boysDeathEvolution =  await deathService.getDeathsEvolutionBySexe(this.deathsYears,this.deaths,"Homme")
+    console.log(this.boysDeathEvolution)
+    //girls
+    this.girlsDeathEvolution =  await deathService.getDeathsEvolutionBySexe(this.deathsYears,this.deaths,"Femme")
+    console.log(this.girlsDeathEvolution)
+
+
+    this.setGlobalDeathEvolutionChart()
+    this.setBoysDeathEvolutionChart()
+    this.setGirlsDeathEvolutionChart()
    
      
   }

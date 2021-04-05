@@ -1,5 +1,5 @@
 /**
- * Class that allow to retrive data from "Evenement" API
+ * Class that allow to retrive data from "Nombre annuel de naissance" API
  */
 
 import CommonService from './commonService'
@@ -21,7 +21,7 @@ import CommonService from './commonService'
     }
     /**
      * retrieve the dataset "nombre-annuel-naissances-nantes"
-     * @returns the list of first 30 items of the dataset
+     * @returns the list of first 10 items of the dataset
      */
     getBirths() {
       const commonService = new CommonService(this.datasetID,this.sort,this.facet,this.rows)
@@ -106,6 +106,33 @@ import CommonService from './commonService'
 
       return years.sort((a, b) => a - b)
   }
+
+  /**
+   * The total of births
+   */
+   getTotalOfBirths(births) {
+    let total = 0
+   births.forEach(element => {
+      total = total + element.fields.nb_naissances
+   })
+      return total
+  }
+
+   /**
+   * The total of births by sexe
+   */
+    getTotalOfBirthsBySexe(births,sexe) {
+      let total = 0
+     births.forEach(element => {
+      if (sexe == element.fields.sexe ) {
+        total = total + element.fields.nb_naissances
+      }
+        
+     })
+        return total
+    }
+
+    
 }
 
   
