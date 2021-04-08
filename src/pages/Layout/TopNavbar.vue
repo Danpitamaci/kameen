@@ -17,12 +17,15 @@
 
         <div class="md-collapse">
           <md-list>
+            <md-list-item href="#/nouveauEvent">
+              <md-button class="md-success">
+                <md-icon>add</md-icon> Ajouter un évenement
+              </md-button>
+            </md-list-item>
             <md-list-item href="#/">
               <i class="material-icons">dashboard</i>
               <p class="hidden-lg hidden-md">Bienvenue sur Nantes métropole</p>
             </md-list-item>
-
-
           </md-list>
         </div>
       </div>
@@ -32,27 +35,11 @@
 
 <script>
 export default {
-  data() {
-    return {
-      selectedEmployee: null,
-      employees: [
-        "Jim Halpert",
-        "Dwight Schrute",
-        "Michael Scott",
-        "Pam Beesly",
-        "Angela Martin",
-        "Kelly Kapoor",
-        "Ryan Howard",
-        "Kevin Malone"
-      ]
-    };
-  },
+
   methods: {
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
-    }
-  }
+    },
+  },
 };
 </script>
-
-<style lang="css"></style>

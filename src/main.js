@@ -12,7 +12,6 @@ import GlobalDirectives from "./globalDirectives";
 // MaterialDashboard plugin
 import MaterialDashboard from "./material-dashboard";
 
-import Chartist from "chartist";
 
 // configure router
 const router = new VueRouter({
@@ -20,7 +19,6 @@ const router = new VueRouter({
   linkExactActiveClass: "nav-item active"
 });
 
-Vue.prototype.$Chartist = Chartist;
 
 Vue.use(VueRouter);
 Vue.use(MaterialDashboard);
@@ -31,8 +29,5 @@ Vue.use(GlobalDirectives);
 new Vue({
   el: "#app",
   render: h => h(App),
-  router,
-  data: {
-    Chartist: Chartist
-  }
+  router
 });

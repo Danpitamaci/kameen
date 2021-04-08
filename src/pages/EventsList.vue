@@ -8,7 +8,7 @@
             <p class="category">Nantes métropôle</p>
           </md-card-header>
           <md-card-content style="margin-left:7%">
-           <event-card :event="event" v-for="event in events" :key="event.id_manif" ></event-card>
+           <event-card :event="event" v-for="event in events" :key="event.id"  :favoris="true" ></event-card>
           </md-card-content>
         </md-card>
       </div>
@@ -20,13 +20,7 @@
 import AgendaService from '../services/agendaServices'
 import EventCard from '../components/Agenda/EventCard.vue';
 export default {
-  components: { EventCard },
-  props: {
-    dataBackgroundColor: {
-      type: String,
-      default: ""
-    }
-  },
+ components: { EventCard },
  data () {
             return {
                 events:[]
@@ -36,7 +30,8 @@ export default {
             async getAllEvents () {
                 const  agendaServices = new AgendaService()
                 const response = await agendaServices.getAllEvents()
-                this.events = response.data.records.map( record => record.fields)
+                this.events = response.data.records.map( record => ({ ...record.fields,id: record.recordid}))
+                console.log(this.events)
             }
         },
  mounted() {

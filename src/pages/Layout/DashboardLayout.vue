@@ -7,20 +7,24 @@
       :sidebar-background-image="sidebarBackgroundImage"
     >
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/dashboard">
-        <md-icon>dashboard</md-icon>
-        <p>Dashboard</p>
-      </sidebar-link>
       <sidebar-link to="/eventsList">
         <md-icon>event</md-icon>
-        <p>Agenda Nantes</p>
+        <p>Evenements de Nantes</p>
+      </sidebar-link>
+     <sidebar-link to="/favoris">
+        <md-icon>favorite</md-icon>
+        <p>Favoris</p>
+      </sidebar-link>
+        <sidebar-link to="/myEvents">
+        <md-icon>event_note</md-icon>
+        <p>Mes évenements</p>
       </sidebar-link>
     </side-bar>
+    
 
     <div class="main-panel">
       <top-navbar></top-navbar>
       <dashboard-content> </dashboard-content>
-
       <content-footer v-if="!$route.meta.hideFooter"></content-footer>
     </div>
   </div>

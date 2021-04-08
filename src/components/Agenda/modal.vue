@@ -12,15 +12,17 @@
           />
         </div>
         <div class="details">
-          <span v-if="event.adresse !==''"><strong>Adresse : </strong>{{ event.adresse }}</span>
+          <span v-if="event.adresse !== ''"
+            ><strong>Adresse : </strong>{{ event.adresse }}</span
+          >
           <span><strong>Quartier : </strong>{{ event.lieu_quartier }}</span>
-         
+
           <span><strong>Date : </strong>{{ event.date }}</span>
           <span
-            ><strong>Heure : </strong> de {{ event.heure_debut }}
-           à  {{ event.fin }}</span
+            ><strong>Heure : </strong> de {{ event.heure_debut }} à
+            {{ event.fin }}</span
           >
-                   <span><strong>Tarif : </strong>{{ event.precisions_tarifs }}</span>
+          <span><strong>Tarif : </strong>{{ event.precisions_tarifs }}</span>
           <span><strong>Rubrique : </strong>{{ event.rubrique }}</span>
         </div>
       </div>
@@ -29,9 +31,7 @@
       </div>
     </md-dialog-content>
     <md-dialog-actions>
-      <md-button class="md-danger" @click="onClose"
-        >Fermer</md-button
-      >
+      <md-button class="md-danger" @click="onClose">Fermer</md-button>
     </md-dialog-actions>
   </md-dialog>
 </template>
@@ -42,15 +42,15 @@ export default {
     showDialog: Boolean,
     event: Object,
   },
-  model:{
-          event: 'change'
+  model: {
+    event: "change",
   },
-  methods:{
-      onClose($event){
-      this.showDialog = false
-      this.$emit('closed',this.showDialog)
-      }
-  }
+  methods: {
+    onClose($event) {
+      this.showDialog = false;
+      this.$emit("closed", this.showDialog);
+    },
+  },
 };
 </script>
 <style scoped>

@@ -6,6 +6,11 @@
         <p>Dashboard</p></a
       >
     </li>
+    <li>
+       <a href="#/nouveauEvent" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="material-icons">add</i>
+        <p>Ajouter Evenement</p></a>
+    </li>
   </ul>
 </template>
 <script>

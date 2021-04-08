@@ -16,7 +16,7 @@
           >BAH - NEJI</a
         >, Made for studies purpose
       </div>
-         <div class="copyright text-center">
+         <div class="copyright text-center" v-if="loc">
          <p>Votre position est : *Latitude: <strong>{{loc.coords.latitude}}</strong>   *Longitude: <strong>{{loc.coords.longitude}}</strong></p>
       </div>
       <div>

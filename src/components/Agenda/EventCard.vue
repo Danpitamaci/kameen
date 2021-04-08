@@ -22,16 +22,26 @@
     </md-card-content>
 
     <md-card-actions>
-      <md-button class="md-round md-success" v-on:click="showDialog = true">
+      <md-button v-if="favoris" class="md-round md-warning" @click="addEventToStorage">
+        <md-icon>favorite</md-icon>
+        favories
+      </md-button>
+     <md-button v-if="!favoris" class="md-round md-danger" @click="deleted">
+        <md-icon>delete</md-icon>
+        Retirer
+      </md-button>
+       <md-button class="md-round md-success" v-on:click="showDialog = true">
         <md-icon>remove_red_eye</md-icon>
-        Détails</md-button
-      >
+        Détails
+      </md-button>
     </md-card-actions>
     <modal :event="event" :showDialog="showDialog" @closed="closed" />
   </md-card>
 </template>
 <script>
 import modal from "./modal.vue";
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
 export default {
   components: { modal },
   name: "event-card",
@@ -71,7 +81,9 @@ export default {
       rubrique: String,
       type: String,
       ville: String,
+      onglet: String
     },
+    favoris: Boolean
   },
   data() {
     return {
@@ -81,7 +93,18 @@ export default {
    methods: {
     closed (value) {
       this.showDialog = false 
-    }
+    },
+
+    addEventToStorage(value){
+      this.event.onglet="favoris"
+      Storage.set({
+        key: this.event.id,
+        value: JSON.stringify(this.event)
+    })
+   },
+   deleted(){
+    this.$emit('deleted', this.event.id)  
+   }
   }
 };
 </script>
