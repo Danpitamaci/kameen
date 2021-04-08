@@ -31,7 +31,6 @@ export default {
                 const  agendaServices = new AgendaService()
                 const response = await agendaServices.getAllEvents()
                 this.events = response.data.records.map( record => ({ ...record.fields,id: record.recordid}))
-                console.log(this.events)
             }
         },
  mounted() {
