@@ -1,7 +1,7 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Favoris from "@/pages/Favoris.vue";
-import NouveauEvent from "@/pages/NouveauEvent.vue";
+import NouveauEvent from "@/components/form/NouveauEvent.vue";
 import EventsList from "@/pages/EventsList.vue";
 import MyEvents from "@/pages/MyEvents.vue";
 
